@@ -2,11 +2,12 @@
 let express=require("express")
 const connection=require("./connection")
 const userRoute = require("./Routes/userRoutes")
+let cors=require("cors")
 let app=express()
 
 require("dotenv").config()
 app.use(express.json())
-
+app.use(cors())
 app.get("/",(req,res)=>{
     res.status(200).send({"msg":"Your Calender home route"})
 })

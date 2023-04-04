@@ -1,11 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
-import Signup from './Signup_login/Signup';
+
+import AllRoutes from './AllRoutes/AllRoutes';
 
 function App() {
   return (
     <div className="App">
-     <Signup/>
+      <AllRoutes/>
     </div>
   );
 }

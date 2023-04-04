@@ -1,0 +1,13 @@
+
+    let time=new Date("April 4 , 2023 01:15:00")
+    console.log(typeof time.getMonth(),"month")
+    console.log(typeof time.getDate(),"date")
+    console.log(typeof time.getFullYear(),"year")
+    console.log(typeof time.getHours(),"hour")
+    console.log(typeof time.getMinutes(),"min")
+    console.log(typeof time.getSeconds(),"sec")
+    function getDaysInMonth(year, month) {
+      return new Date(year, month, 0).getDate();
+    }
+    const daysInSeptember = getDaysInMonth(2023, 2);
+  console.log(daysInSeptember); 
