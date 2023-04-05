@@ -3,6 +3,7 @@ let express=require("express")
 const connection=require("./connection")
 const userRoute = require("./Routes/userRoutes")
 let cors=require("cors")
+const taskRoutes = require("./Routes/taskRoutes")
 let app=express()
 
 require("dotenv").config()
@@ -13,7 +14,7 @@ app.get("/",(req,res)=>{
 })
 
 app.use("/users",userRoute)
-
+app.use("/tasks",taskRoutes)
 app.listen(process.env.port,async()=>{
     try {
         await connection

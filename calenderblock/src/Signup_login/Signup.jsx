@@ -46,6 +46,8 @@ await axios({
     status: "success",
     isClosable: true,
   })
+  localStorage.setItem("calenderToken",res.data.token)
+  localStorage.setItem("infoforcalender",JSON.stringify(res.data.data))
 }).catch((er)=>{
   console.log(er.response.data)
   toast({
@@ -59,14 +61,14 @@ await axios({
   return (
     <div>
       <Heading fontFamily={"sans-serif"}>Signup</Heading>
-      <Box borderRadius={"10px"} p={5} m="auto" w="280px" boxShadow={"rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;"}>
+      <Box bg={"white"} color={"black"} borderRadius={"10px"} p={5} m="auto" w="280px" boxShadow={"rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;"}>
         <FormLabel>Name :</FormLabel>
         <Input id="signupInput" name="name" value={signup.name} type='text' placeholder='Please Enter Your Name' onChange={handleChange}  />
         <FormLabel>Email :</FormLabel>
         <Input  id="signupInput" name="email" value={signup.email} type='text' placeholder='Please Enter Your Email' onChange={handleChange}  />
         <FormLabel>Password :</FormLabel>
         <Input  id="signupInput" name="password" value={signup.password} type='password' placeholder='Please Enter Your Password' onChange={handleChange}  />
-        <Button borderRadius={"20px"} w="100%" marginTop={"10px"} onClick={handleclick}>Sinup</Button>
+        <Button  w="100%"_hover={{bg:"#B794F4"}}  borderRadius={"20px"} bg={"#B794F4"} my={5} color={"white"} onClick={handleclick}>Sinup</Button>
       </Box>
     </div>
   )
