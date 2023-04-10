@@ -1,8 +1,22 @@
 import { Badge } from '@chakra-ui/react'
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { Icon } from '@chakra-ui/react'
+import { context } from '../Context/Context'
+import { useEffect } from 'react'
 const TimeBadge = ({data}) => {
-  return <Badge w="70px" marginLeft={"140px"}> <CircleIcon color={`${data.hour%12==9?"red.500":"green.500"}`}/> {` ${data.hour%12} : ${data.minute<10?`0${data.minute}`:data.minute} : ${data.meridian==1?"AM":"PM"}`}</Badge>
+
+  let {light}=useContext(context)
+  let [dotcolor,setdotcolor]=useState("green.500")
+  
+  useEffect(()=>{
+  
+     if(data.hour+data.durationH<=new Date().getHours()&&data.minute+data.durationM<=new Date().getMinutes()){
+      setdotcolor("red.500")
+     }
+  },[])
+
+console.log(dotcolor)
+  return <Badge  color={light?"black":"white"} w="90px"> <CircleIcon color={dotcolor}/> {` ${data.hour%12} : ${data.minute<10?`0${data.minute}`:data.minute} : ${data.meridian==1?"AM":"PM"}`}</Badge>
 }
 
 export default TimeBadge

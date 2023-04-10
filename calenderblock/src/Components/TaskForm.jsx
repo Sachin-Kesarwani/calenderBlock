@@ -15,16 +15,19 @@ import "./task.css";
 import { GrAdd, IconName } from "react-icons/gr";
 let inidata = {
   year: new Date().getFullYear(),
-  month: new Date().getMonth(),
+  month: new Date().getMonth()+1,
   // day:new Date().getDay(),
   date: new Date().getDate(),
-  hour: 0,
-  minute: 0,
-  meridian: 1,
+  hour: new Date().getHours()+1,
+  minute: new Date().getMinutes(),
+  meridian: new Date().getHours()+1%12>0?2:1,
   task: "",
   importance: 1,
   status: false,
   process: false,
+  durationH:1,
+  durationM:0
+ 
 };
 const TaskForm = () => {
   let [data, setdata] = useState(inidata);
@@ -50,11 +53,17 @@ const TaskForm = () => {
         ? setdata({ ...data, meridian: 2, hour: hour, minute })
         : setdata({ ...data, meridian: 1, hour, minute });
     } else if (e.target.name === "importance") {
-      e.target.name = Number(e.target.value);
+      e.target.value = Number(e.target.value);
+      setdata({ ...data, [e.target.name]: e.target.value });
     } else if (e.target.name == "process") {
       e.target.value == "Not Done"
         ? setdata({ ...data, process: false })
         : setdata({ ...data, process: true });
+    }else if(e.target.name=="duration"){
+      let [hour, minute] = e.target.value.split(":");
+      hour=parseInt(hour)
+      minute=parseInt(minute)
+      setdata({ ...data, "durationH": hour,"durationM":minute });
     } else {
       setdata({ ...data, [e.target.name]: e.target.value });
     }
@@ -111,6 +120,7 @@ const TaskForm = () => {
             type="text"
             onChange={handleChange}
             required
+            maxLength={"30"}
           />
           <FormLabel>Importance of task</FormLabel>
           <Select
@@ -133,6 +143,7 @@ const TaskForm = () => {
                 name="date"
                 onChange={handleChange}
                 type="date"
+          
               />
             </FormLabel>
 
@@ -148,6 +159,16 @@ const TaskForm = () => {
               />{" "}
             </FormLabel>
           </Box>
+          <FormLabel>Duration </FormLabel>
+          <Input
+                id="addingtaskInput"
+                type="time"
+                w="100%"
+                placeholder="Enter Duration In Hours"
+                onChange={handleChange}
+                name="duration"
+              />
+          {/* <Input  id="addingtaskInput" name="duration" placeholder="Enter Duration In Hours"/> */}
           <FormLabel>
             Status :{" "}
             <Select

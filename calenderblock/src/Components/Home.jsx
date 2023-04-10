@@ -22,6 +22,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import TaskForm from './TaskForm';
 import AllRoutes from '../AllRoutes/AllRoutes';
+import { context } from '../Context/Context';
+import { useContext } from 'react';
 
 const Links = [{name:'Dashboard',link:"/"},{ name:'Signup',link:"/signup"}, {name:'login',link:"/login"},{name:"Add task",link:"/taskform"}];
 
@@ -36,7 +38,12 @@ export default function Home() {
   function logout(){
     localStorage.removeItem("calenderToken")
     localStorage.removeItem("infoforcalender")
-navigate("/")
+     navigate("/signup")
+  }
+  let {light, changecolor}=useContext(context)
+  function handlecolormode(){
+    console.log("handleColormode")
+    changecolor()
   }
   console.log(userinfo)
   return (
@@ -80,7 +87,9 @@ navigate("/")
                 />
                
               </MenuButton>
-              <Button onClick={toggleColorMode}>
+              <Button onClick={()=>{
+                handlecolormode()
+                toggleColorMode()}}>
                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
               </Button>
               <MenuList>

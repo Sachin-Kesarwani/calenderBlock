@@ -13,7 +13,10 @@ let taskSchema=mongoose.Schema({
     importance:{type:Number,required:true},
     process:{type:Boolean,required:true},
     status:{type:Boolean,required:true},
-    userid:{type:String,required:true}
+    userid:{type:String,required:true},
+    durationH:{type:Number,required:true},
+    durationM:{type:Number,required:false},
+    duration:String
 })
 
 let taskModel=mongoose.model("task",taskSchema)
