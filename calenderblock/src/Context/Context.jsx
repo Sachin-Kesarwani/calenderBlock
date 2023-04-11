@@ -9,7 +9,7 @@ export const ContextProvider=({children})=>{
     function changecolor(){
         setLight(!light)
     }
-return <context.Provider value={{light,changecolor}}>
+return <context.Provider value={{light,changecolor,setLight}}>
 {
     children
 }

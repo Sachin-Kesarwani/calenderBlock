@@ -1,0 +1,10 @@
+#serachBox{
+    width: 90%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+#serachinput{
+    /* border: 0.5px solid black; */
+    border-radius: 30px;
+}

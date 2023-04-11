@@ -24,6 +24,7 @@ import TaskForm from './TaskForm';
 import AllRoutes from '../AllRoutes/AllRoutes';
 import { context } from '../Context/Context';
 import { useContext } from 'react';
+import { useEffect } from 'react';
 
 const Links = [{name:'Dashboard',link:"/"},{ name:'Signup',link:"/signup"}, {name:'login',link:"/login"},{name:"Add task",link:"/taskform"}];
 
@@ -40,12 +41,19 @@ export default function Home() {
     localStorage.removeItem("infoforcalender")
      navigate("/signup")
   }
-  let {light, changecolor}=useContext(context)
+  let {light, changecolor,setLight}=useContext(context)
   function handlecolormode(){
-    console.log("handleColormode")
+
     changecolor()
   }
-  console.log(userinfo)
+  useEffect(()=>{
+  if(colorMode=="light"){
+    setLight(true)
+  }else{
+    setLight(false)
+  }
+  },[colorMode])
+ console.log(process.env.Backend_base_url)
   return (
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
@@ -63,9 +71,9 @@ export default function Home() {
               as={'nav'}
               spacing={4}
               display={{ base: 'none', md: 'flex' }}>
-              {Links.map((e) => (
+              {Links.map((e,i) => (
                 <Button bg={"#38B2AC"} >
- <Link key={e.name} to={e.link}>{e.name}</Link>
+ <Link key={i} to={e.link}>{e.name}</Link>
                 </Button>
                
               ))}
@@ -87,7 +95,7 @@ export default function Home() {
                 />
                
               </MenuButton>
-              <Button onClick={()=>{
+              <Button marginLeft={4} onClick={()=>{
                 handlecolormode()
                 toggleColorMode()}}>
                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
@@ -96,7 +104,7 @@ export default function Home() {
                 <MenuItem key="About Developer"><Link to="/about"> About Developer</Link></MenuItem>
                 <MenuItem key="logout" onClick={logout}>Logout</MenuItem>
                 <MenuDivider />
-                <MenuItem key="Link3">Link 3</MenuItem>
+                <MenuItem key="admin">Admin Page</MenuItem>
               </MenuList>
             </Menu>
           </Flex>

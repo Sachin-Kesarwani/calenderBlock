@@ -36,7 +36,7 @@ userRoute.post("/signup",async(req,res)=>{
 
 userRoute.post("/login",async(req,res)=>{
     let data=req.body
-    console.log(data)
+   
     try {
     
         let storeddata=await SignupModel.find({email:data.email})

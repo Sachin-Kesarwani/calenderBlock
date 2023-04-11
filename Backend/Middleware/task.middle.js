@@ -8,7 +8,7 @@ const taskmiddleware=(req,res,next)=>{
       
       if(decoded){
        let storeduser=await SignupModel.findOne({_id:decoded.userid})
-          console.log(storeduser,!storeduser)
+          
         if(storeduser){
             req.body.userid=decoded.userid
             next()

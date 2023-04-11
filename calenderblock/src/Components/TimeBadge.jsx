@@ -9,14 +9,17 @@ const TimeBadge = ({data}) => {
   let [dotcolor,setdotcolor]=useState("green.500")
   
   useEffect(()=>{
-  
-     if(data.hour+data.durationH<=new Date().getHours()&&data.minute+data.durationM<=new Date().getMinutes()){
+    let start=(data.hour*60)+(data.minute)
+    let current=Number(new Date().getHours()*60)+Number(new Date().getMinutes())
+    let end=start+(data.durationH*60)+data.durationM
+     if(current>end){
+
       setdotcolor("red.500")
      }
   },[])
 
-console.log(dotcolor)
-  return <Badge  color={light?"black":"white"} w="90px"> <CircleIcon color={dotcolor}/> {` ${data.hour%12} : ${data.minute<10?`0${data.minute}`:data.minute} : ${data.meridian==1?"AM":"PM"}`}</Badge>
+
+  return <Badge key={data._id}  color={light?"black":"white"} w="90px"> <CircleIcon color={dotcolor}/> {` ${data.hour%12==0?"12":data.hour%12} : ${data.minute<10?`0${data.minute}`:data.minute} : ${data.meridian==1?"AM":"PM"}`}</Badge>
 }
 
 export default TimeBadge

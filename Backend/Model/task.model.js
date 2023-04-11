@@ -16,7 +16,8 @@ let taskSchema=mongoose.Schema({
     userid:{type:String,required:true},
     durationH:{type:Number,required:true},
     durationM:{type:Number,required:false},
-    duration:String
+    duration:String,
+    durationS:Number
 })
 
 let taskModel=mongoose.model("task",taskSchema)

@@ -10,9 +10,10 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./task.css";
 import { GrAdd, IconName } from "react-icons/gr";
+import { context } from "../Context/Context";
 let inidata = {
   year: new Date().getFullYear(),
   month: new Date().getMonth()+1,
@@ -26,13 +27,15 @@ let inidata = {
   status: false,
   process: false,
   durationH:1,
-  durationM:0
+  durationM:0,
+  durationS:new Date().getSeconds()
  
 };
 const TaskForm = () => {
   let [data, setdata] = useState(inidata);
   let toast = useToast();
   let [loading,setLoading]=useState(false)
+  let {light}=useContext(context)
   //localStorage.setItem("infoforcalender",JSON.stringify(res.data.data))
 
   function handleChange(e) {
@@ -79,7 +82,7 @@ const TaskForm = () => {
     let token = localStorage.getItem("calenderToken");
     console.log(token);
     await axios({
-      url: "http://localhost:8080/tasks/add",
+      url: "https://crazy-pink-crocodile.cyclic.app/tasks/add",
       method: "post",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -94,6 +97,7 @@ const TaskForm = () => {
           isClosable: true,
           position:"top"
         });
+        setdata(inidata)
       })
       .catch((er) => {
         setLoading(false)
@@ -110,7 +114,7 @@ const TaskForm = () => {
   return (
     <div>
       <Box m={"auto"}>
-        <Container borderRadius={"10px"} p={5} boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px;"} maxW="md" bg="white" color="black">
+        <Container bg={light?"white":"black"}  borderRadius={"10px"} p={5} boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px;"} maxW="md">
           <FormLabel>Your Task</FormLabel>
           <Input
             id="addingtaskInput"
@@ -181,7 +185,7 @@ const TaskForm = () => {
               <option value="Process">Process</option>
             </Select>
           </FormLabel>
-          <Button   _hover={{bg:"#B794F4"}} borderRadius={"20px"} bg={"#B794F4"} color={"white"} w="100%" isLoading={loading} onClick={handleClick}><Icon color="RGBA(0, 0, 0, 0.04)" as={GrAdd}/> Add task</Button>
+          <Button   _hover={{bg:"#B794F4"}} borderRadius={"20px"} bg={"#B794F4"} color={"white"} w="100%" isLoading={loading} onClick={handleClick}> Add task</Button>
         </Container>
         
       </Box>
