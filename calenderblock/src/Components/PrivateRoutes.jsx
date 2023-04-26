@@ -1,13 +1,15 @@
 import { useToast } from '@chakra-ui/react'
 import React from 'react'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
-
+import Cookies from 'js-cookie';
 const PrivateRoutes = ({children}) => {
-    let token=localStorage.getItem("calenderToken")
+
+    let token=Cookies.get('calenderToken')
+
    let navigate=useNavigate()
    let location = useLocation();
    let toast=useToast()
-    console.log(!token)
+
 
     if(!token){
         toast({
@@ -16,7 +18,7 @@ const PrivateRoutes = ({children}) => {
             isClosable: true,
             position:"top"
           })
-          console.log(location.pathname,typeof location.pathname)
+       // console.log(location.pathname,typeof location.pathname)
    //let tothe=location.pathname ||"/login"
 
      return <Navigate to="/login" />

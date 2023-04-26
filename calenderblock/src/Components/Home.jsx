@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useRef } from 'react';
 import {
   Box,
   Flex,
@@ -16,6 +16,7 @@ import {
   useColorModeValue,
   Stack,
   useColorMode,
+  Image,
 } from '@chakra-ui/react';
 import mypic from "./mypic.jpg"
 import { Link, useNavigate } from 'react-router-dom';
@@ -25,8 +26,10 @@ import AllRoutes from '../AllRoutes/AllRoutes';
 import { context } from '../Context/Context';
 import { useContext } from 'react';
 import { useEffect } from 'react';
-
-const Links = [{name:'Dashboard',link:"/"},{ name:'Signup',link:"/signup"}, {name:'login',link:"/login"},{name:"Add task",link:"/taskform"}];
+import "./home.css"
+import { Feedback } from './Feedback';
+import Cookies from 'js-cookie';
+const Links = [{name:'Dashboard',link:"/"},{ name:'Signup',link:"/signup"}, {name:'Login',link:"/login"},{name:"Add task",link:"/taskform"}];
 
 // const NavLink = ({ children }) => (
 
@@ -34,17 +37,30 @@ const Links = [{name:'Dashboard',link:"/"},{ name:'Signup',link:"/signup"}, {nam
 export default function Home() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
-  let navigate=useNavigate()
-  let userinfo=JSON.parse(localStorage.getItem("infoforcalender"))
+  let navigate=useNavigate();
+  let warn=useRef(null);
+  let lightdark=useRef(null);
+
+  let userinfo= JSON.parse(Cookies.get('infoforcalender')||JSON.stringify({name:"User"}))
+
   function logout(){
+  
+     warn?.current?.play()
+    warn.current.volume=1
     localStorage.removeItem("calenderToken")
     localStorage.removeItem("infoforcalender")
-     navigate("/signup")
+    Cookies.remove('infoforcalender');
+    Cookies.remove('calenderToken');
+    setTimeout(()=>{
+      navigate("/signup")
+    },100)
+ 
   }
   let {light, changecolor,setLight}=useContext(context)
   function handlecolormode(){
-
+    lightdark?.current?.play()
     changecolor()
+   
   }
   useEffect(()=>{
   if(colorMode=="light"){
@@ -53,7 +69,7 @@ export default function Home() {
     setLight(false)
   }
   },[colorMode])
- console.log(process.env.Backend_base_url)
+
   return (
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
@@ -66,7 +82,7 @@ export default function Home() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={'center'}>
-            <Box ><b>{userinfo?.name||"User"}</b></Box>
+            <Box ><b>{userinfo?.name}</b></Box>
             <HStack
               as={'nav'}
               spacing={4}
@@ -104,7 +120,7 @@ export default function Home() {
                 <MenuItem key="About Developer"><Link to="/about"> About Developer</Link></MenuItem>
                 <MenuItem key="logout" onClick={logout}>Logout</MenuItem>
                 <MenuDivider />
-                <MenuItem key="admin">Admin Page</MenuItem>
+                <MenuItem key="admin"><Feedback/></MenuItem>
               </MenuList>
             </Menu>
           </Flex>
@@ -121,7 +137,12 @@ export default function Home() {
         ) : null}
       </Box>
 
-     
+      <div id="box">
+        <Image w="100%" src="https://m.media-amazon.com/images/I/41HrC4qt6YL.png"/>
+      
+      </div>
+  <audio src="./error.mp3" ref={warn}/>
+  <audio src="./switch.mp3" ref={lightdark}/>
       <AllRoutes/>
     </>
   );
