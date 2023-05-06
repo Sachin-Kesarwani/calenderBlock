@@ -4,7 +4,9 @@ import './App.css';
 import AllRoutes from './AllRoutes/AllRoutes';
 import PrivateRoutes from './Components/PrivateRoutes';
 import Home from './Components/Home';
-import ImageUploader from './Components/Test';
+// import ImageUploader from './Components/Test';
+import Upload from './Components/Test';
+import { Test2 } from './Components/Test2';
 
 
 
@@ -12,7 +14,7 @@ import ImageUploader from './Components/Test';
 function App() {
   return (
     <div className="App">
-  
+
      <Home/>
 
     </div>

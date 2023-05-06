@@ -119,6 +119,7 @@ const Singletask = ({ getalltasks, data }) => {
  
   }, []);
 // console.log(data)
+console.log(data.task)
   return (
     <div key={data._id} style={{ marginTop: "10px" }}>
       <Box
@@ -249,4 +250,6 @@ const Singletask = ({ getalltasks, data }) => {
   );
 };
 
-export default Singletask;
+export default React.memo(Singletask) ;
+
+

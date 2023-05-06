@@ -124,6 +124,7 @@ const Timer = ({ data ,delLoading , delcalenderBlock}) => {
 //console.log(hours,minutes,seconds)
 // console.log(waittimer,started,data.task)
 // console.log(future,status,started)
+// console.log("timer")
   return (
     <div key={data._id} style={{ display: "flex", justifyContent: "space-between" }}>
       {future == true ? (

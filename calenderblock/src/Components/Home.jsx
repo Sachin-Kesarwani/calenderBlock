@@ -4,7 +4,7 @@ import {
   Flex,
   Avatar,
   HStack,
-  
+  SkeletonCircle, 
   IconButton,
   Button,
   Menu,
@@ -17,6 +17,7 @@ import {
   Stack,
   useColorMode,
   Image,
+  Input,
 } from '@chakra-ui/react';
 import mypic from "./mypic.jpg"
 import { Link, useNavigate } from 'react-router-dom';
@@ -29,6 +30,7 @@ import { useEffect } from 'react';
 import "./home.css"
 import { Feedback } from './Feedback';
 import Cookies from 'js-cookie';
+import { useState } from 'react';
 const Links = [{name:'Dashboard',link:"/"},{ name:'Signup',link:"/signup"}, {name:'Login',link:"/login"},{name:"Add task",link:"/taskform"}];
 
 // const NavLink = ({ children }) => (
@@ -40,8 +42,10 @@ export default function Home() {
   let navigate=useNavigate();
   let warn=useRef(null);
   let lightdark=useRef(null);
-
-  let userinfo= JSON.parse(Cookies.get('infoforcalender')||JSON.stringify({name:"User"}))
+  let image=JSON.parse(localStorage.getItem("calende_image"))
+  let name=Boolean(Cookies.get('infoforcalender'))?Cookies.get('infoforcalender'):JSON.stringify({name:"User"})
+//  console.log(Boolean(Cookies.get('infoforcalender')),"hi",Cookies.get('infoforcalender'))
+  let userinfo= JSON.parse(name)
 
   function logout(){
   
@@ -69,7 +73,40 @@ export default function Home() {
     setLight(false)
   }
   },[colorMode])
+  const [selectedFile, setSelectedFile] = useState("");
 
+  function uploadImage(event){
+    let reader=new FileReader()
+    reader.readAsDataURL(event.target.files[0])
+    reader.onload=(event)=>{
+     
+      setSelectedFile(reader.result);
+      localStorage.setItem("calende_image",JSON.stringify(reader.result))
+  console.log(reader.result)
+
+    }
+    reader.onerror=(er)=>{
+      console.log(er)
+    }
+  }
+  let stylediv={
+    position: "relative",
+    display: "inlineBlock",
+    backgroundColor: "#e3e3e3",
+    color: "#555",
+    padding: "6px 12px",
+    borderRadius: "4px",
+    cursor: "pointer"
+  }
+  let stylefileinput= {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    opacity: 0,
+    cursor: "pointer"
+  }
   return (
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
@@ -103,10 +140,13 @@ export default function Home() {
                 variant={'link'}
                 cursor={'pointer'}
                 minW={0}>
+                  {/* {
+      selectedFile==""||selectedFile==null?"":<Image h={"100px"} w={"100px"}  src={selectedFile}/>
+      } */}
                 <Avatar
                   size={'sm'}
                   src={
-                  mypic
+                 image|| mypic
                   }
                 />
                
@@ -121,6 +161,10 @@ export default function Home() {
                 <MenuItem key="logout" onClick={logout}>Logout</MenuItem>
                 <MenuDivider />
                 <MenuItem key="admin"><Feedback/></MenuItem>
+                <MenuItem key="image" ><div style={stylediv} class="custom-file-input">
+  <span>Choose File</span>
+  <input onChange={uploadImage}   accept='image*/'style={stylefileinput} type="file" id="file-input" />
+</div></MenuItem>
               </MenuList>
             </Menu>
           </Flex>
@@ -136,11 +180,17 @@ export default function Home() {
           </Box>
         ) : null}
       </Box>
+      {/* <SkeletonCircle size='5' > */}
 
-      <div id="box">
+      {/* <div id="box"> */}
+        {/* <Image w="100%" src="https://m.media-amazon.com/images/I/41HrC4qt6YL.png"/> */}
+      
+      {/* </div> */}
+      
+      {/* <div id="box">
         <Image w="100%" src="https://m.media-amazon.com/images/I/41HrC4qt6YL.png"/>
       
-      </div>
+      </div> */}
   <audio src="./error.mp3" ref={warn}/>
   <audio src="./switch.mp3" ref={lightdark}/>
       <AllRoutes/>
