@@ -7,6 +7,8 @@ import Home from './Components/Home';
 // import ImageUploader from './Components/Test';
 import Upload from './Components/Test';
 import { Test2 } from './Components/Test2';
+import Test3 from './Components/Test3';
+import Rating from './Components/Rating';
 
 
 
@@ -14,7 +16,7 @@ import { Test2 } from './Components/Test2';
 function App() {
   return (
     <div className="App">
-
+{/* <Rating/> */}
      <Home/>
 
     </div>

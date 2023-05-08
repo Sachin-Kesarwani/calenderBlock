@@ -45,8 +45,8 @@ export default function Home() {
   let image=JSON.parse(localStorage.getItem("calende_image"))
   let name=Boolean(Cookies.get('infoforcalender'))?Cookies.get('infoforcalender'):JSON.stringify({name:"User"})
 //  console.log(Boolean(Cookies.get('infoforcalender')),"hi",Cookies.get('infoforcalender'))
-  let userinfo= JSON.parse(name)
-
+  let userinfo=JSON.parse( name)
+console.log(userinfo,typeof userinfo)
   function logout(){
   
      warn?.current?.play()
@@ -82,7 +82,7 @@ export default function Home() {
      
       setSelectedFile(reader.result);
       localStorage.setItem("calende_image",JSON.stringify(reader.result))
-  console.log(reader.result)
+ 
 
     }
     reader.onerror=(er)=>{

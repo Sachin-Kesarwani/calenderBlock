@@ -49,8 +49,9 @@ if(signup.name!==""&&signup.email!==""&&signup.password!==""){
 
 async function postdataInAPI(){
   setLoading(true)
+  let url=process.env.REACT_APP_API_URL
 await axios({
-  url:"https://crazy-pink-crocodile.cyclic.app/users/signup",
+  url:`${url}/users/signup`,
   method:"post",
   data:signup
 }).then((res)=>{
@@ -60,13 +61,16 @@ await axios({
     status: "success",
     isClosable: true,
   })
+  console.log(res)
   Cookies.set('calenderToken',res.data.token);
   Cookies.set('infoforcalender',JSON.stringify(res.data.data));
-
+  console.log(Cookies.get('infoforcalender'))
   // localStorage.setItem("calenderToken",res.data.token)
   // localStorage.setItem("infoforcalender",JSON.stringify(res.data.data))
- 
-  navigate("/taskform")
+ setTimeout(()=>{
+  navigate("/")
+ },1000)
+  
 }).catch((er)=>{
  
   setLoading(false)

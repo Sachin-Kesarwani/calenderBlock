@@ -19,6 +19,7 @@ let token=Cookies.get('calenderToken')
 
 const [progress, setProgress] = useState(0);
    async function getalltasks(alldata=false){
+    let url=process.env.REACT_APP_API_URL
     setLoading(true)
     let token=Cookies.get('calenderToken')||""
     console.log(token)
@@ -28,17 +29,17 @@ const [progress, setProgress] = useState(0);
         onlytextsearch=false
     }
    if(alldata||getCompleteAlldata){
-     link ="https://crazy-pink-crocodile.cyclic.app/tasks/getall"
+     link =`${url}/tasks/getall`
    }else if(year && month&&date &&text.length>0&&onlytextsearch){
 
       // date=null,month=null,year=null
-      link=`https://crazy-pink-crocodile.cyclic.app/tasks/search?year=${year}&month=${month}&date=${date}&task=${text}`
+      link=`${url}/tasks/search?year=${year}&month=${month}&date=${date}&task=${text}`
      }else 
  if(text.length>0){
 
-      link=`https://crazy-pink-crocodile.cyclic.app/tasks/search?task=${text}`
+      link=`${url}/tasks/search?task=${text}`
     }else {
-      link=`https://crazy-pink-crocodile.cyclic.app/tasks/data?year=${year}&month=${month}&date=${date}`
+      link=`${url}/tasks/data?year=${year}&month=${month}&date=${date}`
     }
    
 
@@ -63,10 +64,10 @@ return await  axios({
 
   async  function getFutureAndPastdata(){
     let token=Cookies.get('calenderToken')||""
-  
+    let url=process.env.REACT_APP_API_URL
     setLoading(true)
      await axios({
-      url:"https://crazy-pink-crocodile.cyclic.app/tasks/getall",
+      url:`${url}/tasks/getall`,
       method:'get',
     headers:{
       Authorization:`Bearer ${token}`

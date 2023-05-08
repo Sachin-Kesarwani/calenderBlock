@@ -50,17 +50,18 @@ const Singletask = ({ getalltasks, data }) => {
   }
 
   async function handleStatusProcess(key) {
-  
+    let url="https://nutty-lime-gorilla.cyclic.app"
+   
     let obj={ task: data.task}
     if(key=="process"){
       obj.process=!data.process
     }else if(key=="status"){
-      console.log("inside status")
+     
       if(data.status==true){
-        console.log("inside if")
+      
         obj.status=false
       }else if(data.status==false){
-        console.log("inside else if")
+       
        obj.status=true
         obj.process=true
       }
@@ -69,7 +70,7 @@ const Singletask = ({ getalltasks, data }) => {
     let id = data._id;
     let token=Cookies.get('calenderToken')||""
     return await axios({
-      url: `https://crazy-pink-crocodile.cyclic.app/tasks/update/${id}`,
+      url: `${url}/tasks/update/${id}`,
       method: "patch",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -84,10 +85,11 @@ const Singletask = ({ getalltasks, data }) => {
 
   async function delcalenderBlock(id) {
     setdelLoading(true);
-    let token=Cookies.get('calenderToken')||""
+    let token=Cookies.get('calenderToken')||"";
+    let url="https://nutty-lime-gorilla.cyclic.app"
     deleteaudio?.current?.play()
     await axios({
-      url: `https://crazy-pink-crocodile.cyclic.app/tasks/delete/${id}`,
+      url: `${url}/tasks/delete/${id}`,
       method: "delete",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -119,7 +121,7 @@ const Singletask = ({ getalltasks, data }) => {
  
   }, []);
 // console.log(data)
-console.log(data.task)
+
   return (
     <div key={data._id} style={{ marginTop: "10px" }}>
       <Box

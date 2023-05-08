@@ -50,9 +50,10 @@ setDisable(false)
 
 async function postdataInAPI(){
   setLoading(true)
-
+  let url=process.env.REACT_APP_API_URL
+console.log(url)
 await axios({
-  url:"https://crazy-pink-crocodile.cyclic.app/users/login",
+  url:`${url}/users/login`,
   method:"post",
   data:login
 }).then((res)=>{

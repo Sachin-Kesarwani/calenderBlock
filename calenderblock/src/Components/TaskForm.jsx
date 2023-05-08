@@ -115,9 +115,9 @@ const TaskForm = () => {
     setLoading(true)
    // console.log(data)
     let token=Cookies.get('calenderToken')
-  
+    let url=process.env.REACT_APP_API_URL
     await axios({
-      url: "https://crazy-pink-crocodile.cyclic.app/tasks/add",
+      url: `${url}/tasks/add`,
       method: "post",
       headers: {
         Authorization: `Bearer ${token}`,

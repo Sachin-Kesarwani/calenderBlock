@@ -7,7 +7,7 @@
 .env
 # testing
 /coverage
-
+calenderBlock\calenderblock\src\ignore.js
 # production
 /build
 

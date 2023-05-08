@@ -1,37 +1,33 @@
-import axios from 'axios';
+import { Button, Heading } from '@chakra-ui/react'
+import axios from 'axios'
+import React, { useRef,useEffect } from 'react'
 
-function uploadImage(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const dataUrl = reader.result;
-      const binaryData = atob(dataUrl.split(',')[1]); // decode base64 data
-      const arrayBuffer = new ArrayBuffer(binaryData.length);
-      const view = new Uint8Array(arrayBuffer);
-      for (let i = 0; i < binaryData.length; i++) {
-        view[i] = binaryData.charCodeAt(i);
-      }
-      const blob = new Blob([arrayBuffer], { type: file.type }); // create binary blob
-      const formData = new FormData();
-      formData.append('image', blob);
-      axios.post('/api/upload-image', formData)
-        .then((response) => resolve(response.data))
-        .catch((error) => reject(error));
-    };
-    reader.readAsDataURL(file);
-  });
-}
+export const Test2 = () => {
+let abort=useRef(null)
 
-export function Test2() {
-  const handleFileUpload = async (event) => {
-    const file = event.target.files[0];
-    const result = await uploadImage(file);
-    console.log('Image uploaded:', result);
-  };
-
+    async function getdata(){
+        abort.current=new AbortController()
+     await axios.get("https://jsonplaceholder.typicode.com/users/5/todos",{
+        method:"get",
+        signal:abort.current.signal
+     }).then((re)=>{
+        console.log(re)
+     }).catch((er)=>{
+        er.name="Cacel because of abort"
+        console.log( er.name)
+     })
+    }
+    useEffect(()=>{
+        getdata()
+    },[])
+    function cancelreq(){
+     abort.current&&abort.current.abort()
+    }
   return (
     <div>
-      <input type="file" onChange={handleFileUpload} />
+      <Heading>Cancel : <Button onClick={cancelreq}>cncele</Button></Heading>
     </div>
-  );
+  )
 }
+
+export default Test2
