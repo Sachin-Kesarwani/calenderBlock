@@ -7,6 +7,7 @@
 #serachinput{
     /* border: 0.5px solid black; */
     border-radius: 30px;
+    position: static;
 }
 @media all and (max-width:600px){
     #serachBox{

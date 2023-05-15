@@ -107,7 +107,7 @@ return await  axios({
       } */}
        
       {
-      loading&&<Progress w="100%" marginBottom={"20px"} margin={"auto"}  hasStripe value={100} isAnimated />
+      loading&&<Progress w="100%" marginBottom={"20px"} margin={"auto"} position={"static"}  hasStripe value={100} isAnimated />
     }
      <Heading fontFamily={"initial"}>Dashboard</Heading>
        <Search setgetCompleteAlldata={setgetCompleteAlldata}  getalltasks={getalltasks} getFutureAndPastdata={getFutureAndPastdata} setYear={setYear} setMonth={setMonth} setDate={setDate} setText={setText} />

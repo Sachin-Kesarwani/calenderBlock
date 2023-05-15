@@ -151,7 +151,7 @@ const Singletask = ({ getalltasks, data }) => {
           ) : (
             <Switch
               colorScheme="blue"
-              // bg={"black"}
+              position={"static"}
               borderRadius={"50px"}
               isChecked={process}
               onChange={() => handleprocess(data._id)}
@@ -167,7 +167,7 @@ const Singletask = ({ getalltasks, data }) => {
           ) : (
             <Switch
               colorScheme="blue"
-        
+        position={"static"}
               borderRadius={"50px"}
               isChecked={status}
               onChange={() => handlestatus(data._id)}

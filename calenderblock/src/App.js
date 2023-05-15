@@ -13,6 +13,8 @@ import Rating from './Components/Rating';
 import Alarm from './Components/Test3';
 import { Image } from '@chakra-ui/react';
 import UploadImage from './Components/Test4';
+import Camera from './Components/Test5';
+import SpeechToText from './Components/Test6';
 
 
 
@@ -27,10 +29,9 @@ console.log(e.target.value)
   }
   return (
     <div className="App">
-{/* <Alarm/> */}
+
      <Home/>
-{/* <Test3/> */}
-  <UploadImage/>
+     <AllRoutes/>
     </div>
   );
 }

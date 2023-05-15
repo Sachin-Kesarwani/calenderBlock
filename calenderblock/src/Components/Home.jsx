@@ -31,7 +31,10 @@ import "./home.css"
 import { Feedback } from './Feedback';
 import Cookies from 'js-cookie';
 import { useState } from 'react';
-const Links = [{name:'Dashboard',link:"/"},{ name:'Signup',link:"/signup"}, {name:'Login',link:"/login"},{name:"Add task",link:"/taskform"}];
+import axios from 'axios';
+import { UploadImageInatlas } from './Imagefile';
+
+const Links = [{name:'Dashboard',link:"/"},{name:"Add task",link:"/taskform"},{ name:'Signup',link:"/signup"}, {name:'Login',link:"/login"}];
 
 // const NavLink = ({ children }) => (
 
@@ -42,6 +45,7 @@ export default function Home() {
   let navigate=useNavigate();
   let warn=useRef(null);
   let lightdark=useRef(null);
+  let token=Cookies.get('calenderToken')
   let image=JSON.parse(localStorage.getItem("calende_image"))
   let name=Boolean(Cookies.get('infoforcalender'))?Cookies.get('infoforcalender'):JSON.stringify({name:"User"})
 //  console.log(Boolean(Cookies.get('infoforcalender')),"hi",Cookies.get('infoforcalender'))
@@ -107,10 +111,36 @@ console.log(userinfo,typeof userinfo)
     opacity: 0,
     cursor: "pointer"
   }
+
+
+  const [imagePath, setImagePath] = useState("");
+  const [images, setImages] = useState([]);
+
+  const handleFileSelect = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
+  const handleFileUpload = async () => {
+    let token=Cookies.get('calenderToken')||""
+    const formData = new FormData();
+    formData.append("avatar", selectedFile);
+    try {
+      const response = await axios.post("http://localhost:8080/users/uploadphoto", formData, {
+        headers: { "Content-Type": "multipart/form-data" ,   Authorization:`Bearer ${token}`},
+      });
+      console.log(response.data.data.image.data.data);
+      
+      const base64String = btoa(String.fromCharCode(...new Uint8Array(response.data.data.image.data.data)));
+      setImages( base64String)
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <>
-      <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
-        <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+    <div style={{position:"sticky",top:0,background:"#9F7AEA"}}>
+      <Box bg= '#9B2C2C' px={4}>
+        <Flex h={16} alignItems={'center'}   justifyContent={'space-between'}>
           <IconButton
             size={'md'}
             icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
@@ -119,14 +149,14 @@ console.log(userinfo,typeof userinfo)
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={'center'}>
-            <Box ><b>{userinfo?.name}</b></Box>
+            <Box color={"white"} ><b>{userinfo?.name}</b></Box>
             <HStack
               as={'nav'}
               spacing={4}
               display={{ base: 'none', md: 'flex' }}>
               {Links.map((e,i) => (
-                <Button bg={"#38B2AC"} >
- <Link key={i} to={e.link}>{e.name}</Link>
+                <Button _hover={{bg:"#38B2AC"}} color={"white"} bg={"#38B2AC"} >
+ <Link key={i}  to={e.link}>{e.name}</Link>
                 </Button>
                
               ))}
@@ -161,17 +191,23 @@ console.log(userinfo,typeof userinfo)
                 <MenuItem key="logout" onClick={logout}>Logout</MenuItem>
                 <MenuDivider />
                 <MenuItem key="admin"><Feedback/></MenuItem>
-                <MenuItem key="image" ><div style={stylediv} class="custom-file-input">
-  <span>Choose File</span>
-  <input onChange={uploadImage}   accept='image*/'style={stylefileinput} type="file" id="file-input" />
-</div></MenuItem>
+                {
+                  token&&  <MenuItem key="image" >
+                  <div style={stylediv} class="custom-file-input">
+                <UploadImageInatlas/>
+                  
+  </div>
+  
+  </MenuItem>
+                }
+              
               </MenuList>
             </Menu>
           </Flex>
         </Flex>
 
         {isOpen ? (
-          <Box pb={4} display={{ md: 'none' }}>
+          <Box pb={4} color={"white"} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4}>
             {Links.map((e) => (
                 <Link key={e.name} to={e.link}>{e.name}</Link>
@@ -193,7 +229,19 @@ console.log(userinfo,typeof userinfo)
       </div> */}
   <audio src="./error.mp3" ref={warn}/>
   <audio src="./switch.mp3" ref={lightdark}/>
-      <AllRoutes/>
-    </>
+    
+      {
+          images.length>0&&  <img src={`data:image/jpg;base64,${images}`} alt=""/>
+        }
+    </div>
   );
 }
+
+
+{/* <div style={stylediv} class="custom-file-input">
+<span>Choose File</span>
+<input onChange={uploadImage}  style={stylefileinput} type="file" id="file-input" />
+<Button>Upload</Button>
+</div> */}
+
+// accept='image*/'

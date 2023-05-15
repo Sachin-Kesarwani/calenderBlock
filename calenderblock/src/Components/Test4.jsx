@@ -20,10 +20,10 @@ export function UploadImage() {
       const response = await axios.post("http://localhost:8080/users/uploadphoto", formData, {
         headers: { "Content-Type": "multipart/form-data" ,   Authorization:`Bearer ${token}`},
       });
-      console.log(response);
-      setImagePath(response.data);
-      setSelectedFile(null);
-    //   getdata()
+      // console.log(response.data.data.image.data.data);
+      
+      // const base64String = btoa(String.fromCharCode(...new Uint8Array(response.data.data.image.data.data)));
+      // setImages( base64String)
     } catch (error) {
       console.error(error);
     }
@@ -43,7 +43,7 @@ export function UploadImage() {
 // useEffect(()=>{
 //     getdata()
 // },[])
-// console.log(images)
+console.log(images)
   return (
     <div>
       <h1>Image Upload Example</h1>
@@ -61,11 +61,10 @@ export function UploadImage() {
       <div>
         <h2>Images:</h2>
         <button>Get Images</button>
-        {images.length>0&&images.map((image) => (
-          <div key={image._id}>
-            <img src={"http://localhost:8080/"+image.image} alt="gallery" />
-          </div>
-        ))}
+        {
+          images.length>0&&  <img src={`data:image/jpg;base64,${images}`} alt=""/>
+        }
+      
       </div>
     </div>
   );

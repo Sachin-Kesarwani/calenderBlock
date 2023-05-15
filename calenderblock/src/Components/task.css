@@ -1,5 +1,6 @@
 #addingtaskInput{
   border-radius: 20px;
+  position: static;
  border: 1px solid rgb(107, 82, 82);
   /* border: 1px solid rgb(80, 20, 20); */
 }
