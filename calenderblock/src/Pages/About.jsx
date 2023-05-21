@@ -29,7 +29,7 @@ const About = () => {
      <Heading>About Developer</Heading>
    
      <Container >
-   <Text>
+   <Text textAlign={"justify"}>
    Highly motivated and eager to learn new things. Hard-working , creative , proactive , and specialized in HTML , CSS ,JavaScript and Javascript framework React JS for frontend and MongoDB , ExpressJS and NodeJS for backend. Keep improving skill day by day. Ability to adapt in both self-starting and collaborative environments.
    </Text>
   </Container>
@@ -43,8 +43,11 @@ const About = () => {
           >
   <Button  bg={"purple.400"} _hover={{bg:"purple.400"}} color={"white"} onClick={redirect}>Resume</Button>
   </a>
-  <Text><b>Contact me : </b>sachin.kesarwani67890@gmail.com</Text>
-  <Text><b>Contact number : </b>8470980680</Text>
+  <div style={{display:"flex",justifyContent:"center",flexDirection:"column",width:"400px",margin:"auto"}}>
+  <Text textAlign={"left"}><b>Contact me : </b>sachin.kesarwani67890@gmail.com</Text>
+  <Text textAlign={"left"}><b>Contact number : </b>8470980680</Text>
+  </div>
+ 
     </div>
   )
 }

@@ -1,6 +1,7 @@
+import { Button } from "@chakra-ui/react";
 import React, { useState } from "react";
-
-const SpeechToText = () => {
+import {BsFillMicFill,BsFillMicMuteFill } from "react-icons/bs";
+const SpeechToText = ({setdata,data, setDisable}) => {
   const [transcript, setTranscript] = useState("");
   const [recognition, setRecognition] = useState(null);
 
@@ -22,7 +23,12 @@ const SpeechToText = () => {
           interimTranscript += transcript;
         }
       }
-
+      if(finalTranscript.length>=5){
+        setDisable(false)
+      }else{
+        setDisable(true)
+      }
+     setdata({...data,task:finalTranscript})
       setTranscript(finalTranscript);
     };
 
@@ -42,12 +48,17 @@ const SpeechToText = () => {
 
   return (
     <div>
-      {recognition ? (
-        <button onClick={handleStop}>Stop Recording</button>
+      {/* {recognition ? (
+        <Button onClick={handleStop}>Stop Recording</Button>
       ) : (
-        <button onClick={handleStart}>Start Recording</button>
+        <Button onClick={handleStart}>Start Recording</Button>
+      )} */}
+       {recognition ? (
+        <Button bg={"white"}  borderRadius={"0px 20px 20px 0px"} onClick={handleStop}><BsFillMicFill/></Button>
+      ) : (
+        <Button bg={"white"}  borderRadius={"0px 20px 20px 0px"}  onClick={handleStart}><BsFillMicMuteFill/></Button>
       )}
-      <p>{transcript}</p>
+      {/* <p>{transcript}</p> */}
     </div>
   );
 };

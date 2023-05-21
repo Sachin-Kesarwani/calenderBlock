@@ -15,6 +15,7 @@ import { Image } from '@chakra-ui/react';
 import UploadImage from './Components/Test4';
 import Camera from './Components/Test5';
 import SpeechToText from './Components/Test6';
+// import Test7 from './Components/Test8';
 
 
 
@@ -32,6 +33,7 @@ console.log(e.target.value)
 
      <Home/>
      <AllRoutes/>
+  
     </div>
   );
 }

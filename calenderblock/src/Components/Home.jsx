@@ -18,6 +18,7 @@ import {
   useColorMode,
   Image,
   Input,
+  Heading,
 } from '@chakra-ui/react';
 import mypic from "./mypic.jpg"
 import { Link, useNavigate } from 'react-router-dom';
@@ -33,6 +34,7 @@ import Cookies from 'js-cookie';
 import { useState } from 'react';
 import axios from 'axios';
 import { UploadImageInatlas } from './Imagefile';
+import ScrollToTopButton from './Sentop';
 
 const Links = [{name:'Dashboard',link:"/"},{name:"Add task",link:"/taskform"},{ name:'Signup',link:"/signup"}, {name:'Login',link:"/login"}];
 
@@ -176,7 +178,7 @@ console.log(userinfo,typeof userinfo)
                 <Avatar
                   size={'sm'}
                   src={
-                 image|| mypic
+                token? image: mypic
                   }
                 />
                
@@ -218,10 +220,11 @@ console.log(userinfo,typeof userinfo)
       </Box>
       {/* <SkeletonCircle size='5' > */}
 
-      {/* <div id="box"> */}
+      <div id="box">
+   
         {/* <Image w="100%" src="https://m.media-amazon.com/images/I/41HrC4qt6YL.png"/> */}
-      
-      {/* </div> */}
+      <ScrollToTopButton/>
+      </div>
       
       {/* <div id="box">
         <Image w="100%" src="https://m.media-amazon.com/images/I/41HrC4qt6YL.png"/>

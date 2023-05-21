@@ -127,7 +127,7 @@ function Cancel(){
        
     
       </Box>
-      <Button display={"flex"} bg={"red.700"} onClick={Cancel} _hover={{bg:"red.700"}} color={"white"} marginLeft={"auto"}>Cancel</Button>
+      <Button display={"flex"} bg={"red.700"} onClick={Cancel} _hover={{bg:"red.700"}} color={"white"} padding={"5px"} marginLeft={"auto"}>Cancel</Button>
     </div>
   );
 };

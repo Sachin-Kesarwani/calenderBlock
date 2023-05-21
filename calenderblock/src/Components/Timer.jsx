@@ -22,8 +22,8 @@ const Timer = ({ data ,delLoading , delcalenderBlock}) => {
   let end = start + data.durationH * 60 + data.durationM;
 
    let currentTotalsecond=new Date().getHours()*60*60+new Date().getMinutes()*60+new Date().getSeconds()
-   let tasktimeInsecond=data.hour*60*60+data.minute*60
-  
+   let tasktimeInsecond=data.hour*60*60+data.minute*60+data.durationS
+console.log(data)
   let [timerSecond, setTimersecond] = useState(secondsintimer );
   let [waittimer,setwaitTimer]=useState(tasktimeInsecond-currentTotalsecond)
   let [started, setStarted] = useState(false);

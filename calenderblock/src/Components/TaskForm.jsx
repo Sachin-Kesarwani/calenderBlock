@@ -17,6 +17,7 @@ import { GrAdd, IconName } from "react-icons/gr";
 import { context } from "../Context/Context";
 import { useRef } from "react";
 import Cookies from 'js-cookie';
+import SpeechToText from "./Test6";
 let inidata = {
   year: new Date().getFullYear(),
   month: new Date().getMonth()+1,
@@ -152,17 +153,25 @@ const TaskForm = () => {
       <Box m={"auto"}>
         <Container bg={light?"white":"black"}  borderRadius={"10px"} p={5} boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px;"} maxW="md">
           <FormLabel>Your Task :</FormLabel>
+          <Box display={"flex"}  borderRadius={"20px"}  border= "1px solid rgb(107, 82, 82)">
           <Input
-            id="addingtaskInput"
+          //  _hover={{  border:"1px solid rgb(107, 82, 82)", borderRight:"none"}}
+            position=" static"
+          //  border= "1px solid rgb(107, 82, 82)"
+          //  borderRight={"none"}
+          border={"0px solid white"}
             placeholder="Enter Your Task Atleast of 5 characters"
             name="task"
             value={data.task}
-      
+             width={"90%"}
             type="text"
+            borderRadius={"20px 0px 0px 20px"}
             onChange={handleChange}
             required
             maxLength={"30"}
-          />
+          /><SpeechToText setDisable={setDisable} data={data} setdata={setdata}/>
+          </Box>
+        
           <FormLabel>Importance of task :</FormLabel>
           <Select
             id="addingtaskInput"
@@ -175,7 +184,7 @@ const TaskForm = () => {
             <option value="2">Moderate</option>
             <option value="3">Low</option>
           </Select>
-          <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)"}}>
+          <Box display={"grid"}  gridTemplateColumns={{base:"repeat(1,1fr)",sm:"repeat(2,1fr)",md:"repeat(2,1fr)",lg:"repeat(2,1fr)",xl:"repeat(2,1fr)","2xl":"repeat(2,1fr)"}} >
             <FormLabel>
               Date :{" "}
               <Input
@@ -199,7 +208,7 @@ const TaskForm = () => {
                 name="time"
               />{" "}
             </FormLabel>
-          </div>
+          </Box>
           <FormLabel>Duration :</FormLabel>
          <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)"}}>
          <Select    w="90%"  id="addingtaskInput"   placeholder="Duration In Hours"  name="durationH"  onChange={handleChange}  >
