@@ -1,10 +1,12 @@
 import { Button } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useContext } from "react";
 import {BsFillMicFill,BsFillMicMuteFill } from "react-icons/bs";
+import { context } from "../Context/Context";
 const SpeechToText = ({setdata,data, setDisable}) => {
   const [transcript, setTranscript] = useState("");
   const [recognition, setRecognition] = useState(null);
-
+  let { light } = useContext(context);
   const handleStart = () => {
     const newRecognition = new window.webkitSpeechRecognition();
     newRecognition.continuous = true;
@@ -54,9 +56,9 @@ const SpeechToText = ({setdata,data, setDisable}) => {
         <Button onClick={handleStart}>Start Recording</Button>
       )} */}
        {recognition ? (
-        <Button bg={"white"}  borderRadius={"0px 20px 20px 0px"} onClick={handleStop}><BsFillMicFill/></Button>
+        <Button  bg={light ? "white" : "black"}  borderRadius={"0px 20px 20px 0px"} onClick={handleStop}><BsFillMicFill/></Button>
       ) : (
-        <Button bg={"white"}  borderRadius={"0px 20px 20px 0px"}  onClick={handleStart}><BsFillMicMuteFill/></Button>
+        <Button  bg={light ? "white" : "black"}borderRadius={"0px 20px 20px 0px"}  onClick={handleStart}><BsFillMicMuteFill/></Button>
       )}
       {/* <p>{transcript}</p> */}
     </div>

@@ -34,11 +34,13 @@ console.log(data)
   
 
   function gettime() {
-   // console.log("inside timer",data.task)
+    const currentDate = new Date(); // Get the current date
+    const inputDate = new Date(data.year, data.month - 1, data.date); 
     if (
-      data.year == new Date().getFullYear() &&
-      data.month === new Date().getMonth() + 1 &&
-      data.date == new Date().getDate()
+      inputDate==currentDate
+      // data.year == new Date().getFullYear() &&
+      // data.month === new Date().getMonth() + 1 &&
+      // data.date == new Date().getDate()
     ) {
       
 
@@ -83,15 +85,15 @@ console.log(data)
         setStatus(false);
       }
     } else if (
-      data.year >= new Date().getFullYear() &&
-      data.month >= new Date().getMonth() + 1 &&
-      data.date > new Date().getDate()
-     
+      // data.year >= new Date().getFullYear() &&
+      // data.month >= new Date().getMonth() + 1 &&
+      // data.date > new Date().getDate()
+      inputDate > currentDate
     ) {
    
       setfuture(true);
       //  setStarted(true)
-    } else {
+    } else if(inputDate < currentDate){
      
       setStatus(false);
     }
